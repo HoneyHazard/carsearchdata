@@ -156,16 +156,24 @@ def main():
         car_info.append(get_input_from_user("Company/Person", default=default_values.get("company")))
         website = get_input_from_user("Website", default=default_values.get("website"))        
         car_info.append(f'=HYPERLINK("{website}")')
-        car_info.append(get_location_input(default=default_values.get("location")))
+        # car_info.append(get_location_input(default=default_values.get("location")))
+        car_info.append(get_input_from_user("Location", default=default_values.get("location")))
         car_info.append(default_values.get("latitude"))
         car_info.append(default_values.get("longitude"))
-        car_info.append(get_hours_input(default=default_values.get("hours")))
+        # car_info.append(get_hours_input(default=default_values.get("hours")))
+        car_info.append(get_input_from_user("Hours", default=default_values.get("hours")))
         car_info.append(get_input_from_user("Contact", default=default_values.get("contact")))
         car_info.append(get_input_from_user("Phone", default=default_values.get("phone")))
         car_info.append(get_input_from_user("Email", default=default_values.get("email")))
         car_info.append(get_input_from_user("Status", default=default_values.get("status")))
 
         write_to_excel(car_info, 'output.xlsx')
+        
+        # Displaying collected data before writing to Excel
+        print("\n*** Collected Car Information: ***\n\n")
+        for label, value in zip(['Year and model', 'Mileage', 'Price', 'Link', 'Drive', 'Engine', 'VIN', 'MPG', 'Accidents/Damage/Title', 'Condition', 'Company', 'Website', 'Location', 'Latitude', 'Longitude', 'Hours', 'Contact', 'Phone', 'Email', 'Status'], car_info):
+            print(f"{label}: {value}")
+        print("\n\n*** Next car... ***\n\n")
 
 if __name__ == "__main__":
     main()
