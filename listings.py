@@ -45,20 +45,28 @@ def write_to_excel(data, filename):
     wb.save(filename)
 
 def main():
-    urls_file = input("Enter the path to the file containing URLs: ")
+    urls_file_or_url = input("Enter URLs file or a URL: ")
 
-    with open(urls_file, 'r') as f:
-        urls = f.readlines()
+    # Check if the input is a file path
+    if os.path.isfile(urls_file_or_url):
+        with open(urls_file_or_url, 'r') as f:
+            urls = f.readlines()
+    else:
+        # If it's not a file, treat it as a single URL
+        urls = [urls_file_or_url.strip()]
 
     for url in urls:
         url = url.strip()
         open_url_in_chromium(url)
         
+        website=get_input_from_user("website")
+        link=get_input_from_user("link")
+        
         car_info = []
         car_info.append(get_input_from_user("year and model"))
         car_info.append(get_input_from_user("mileage"))
         car_info.append(get_input_from_user("price"))
-        car_info.append(get_input_from_user("link"))
+        car_info.append(f'=HYPERLINK({link})')
         car_info.append(get_input_from_user("drive"))
         car_info.append(get_input_from_user("engine"))
         car_info.append(get_input_from_user("VIN"))
@@ -66,7 +74,7 @@ def main():
         car_info.append(get_input_from_user("accidents/damage/title"))
         car_info.append(get_input_from_user("condition"))
         car_info.append(get_input_from_user("company/person"))
-        car_info.append(get_input_from_user("website"))
+        car_info.append(f'=HYPERLINK({website})')
         car_info.append(get_location_input())
         car_info.append("latitude")
         car_info.append("longitude")
